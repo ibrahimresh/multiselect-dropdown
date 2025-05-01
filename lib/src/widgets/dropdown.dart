@@ -84,6 +84,7 @@ class _Dropdown<T> extends StatelessWidget {
             borderRadius: decoration.borderRadius,
             color: decoration.backgroundColor,
             backgroundBlendMode: BlendMode.dstATop,
+            border: decoration.border,
           ),
           constraints: BoxConstraints(
             maxWidth: width,

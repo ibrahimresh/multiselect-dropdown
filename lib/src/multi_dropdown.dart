@@ -463,6 +463,7 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
                     isEmpty: _dropdownController.selectedItems.isEmpty,
                     isFocused: _dropdownController.isOpen,
                     decoration: _buildDecoration(),
+                    baseStyle: widget.fieldDecoration.textStyle,
                     textAlign: TextAlign.start,
                     textAlignVertical: TextAlignVertical.center,
                     child: _buildField(),

@@ -196,6 +196,7 @@ class FieldDecoration {
     this.showClearIcon = true,
     this.errorText,
     this.errorStyle,
+    this.textStyle,
   });
 
   /// The label text to display above the dropdown field.
@@ -243,9 +244,14 @@ class FieldDecoration {
   /// show clear icon or not in the dropdown field
   final bool showClearIcon;
 
+  /// error style
   final TextStyle? errorStyle;
 
+  /// error text
   final String? errorText;
+
+  /// text style
+  final TextStyle? textStyle;
 }
 
 /// Configuration class for customizing the appearance of chips in the multi-select dropdown.

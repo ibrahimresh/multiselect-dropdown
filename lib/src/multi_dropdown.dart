@@ -92,6 +92,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
   ///
   const MultiDropdown({
     required this.items,
+    this.emptyItemsWidget,
     this.fieldDecoration = const FieldDecoration(),
     this.dropdownDecoration = const DropdownDecoration(),
     this.searchDecoration = const SearchFieldDecoration(),
@@ -141,6 +142,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
   /// ```
   const MultiDropdown.future({
     required this.future,
+    this.emptyItemsWidget,
     this.fieldDecoration = const FieldDecoration(),
     this.dropdownDecoration = const DropdownDecoration(),
     this.searchDecoration = const SearchFieldDecoration(),
@@ -178,6 +180,9 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
 
   /// The decoration of the dropdown.
   final DropdownDecoration dropdownDecoration;
+
+  /// Show this widget if empty Items
+  final Widget? emptyItemsWidget;
 
   /// The decoration of the search field.
   final SearchFieldDecoration searchDecoration;
@@ -432,6 +437,7 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
                       : Offset(0, widget.dropdownDecoration.marginTop),
                   child: RepaintBoundary(
                     child: _Dropdown<T>(
+                      emptyItemsWidget: widget.emptyItemsWidget,
                       decoration: widget.dropdownDecoration,
                       onItemTap: _handleDropdownItemTap,
                       width: renderBoxSize.width,

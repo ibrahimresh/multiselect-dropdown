@@ -112,6 +112,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSearchChange,
     this.closeOnBackButton = false,
     Key? key,
+    this.emptyFieldWidget,
   })  : future = null,
         super(key: key);
 
@@ -159,7 +160,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSelectionChange,
     this.onSearchChange,
     this.closeOnBackButton = false,
-    Key? key,
+    Key? key, this.emptyFieldWidget,
   })  : items = const [],
         super(key: key);
 
@@ -229,6 +230,9 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
   ///
   /// Note: This option requires the app to have a router, such as MaterialApp.router, in order to work properly.
   final bool closeOnBackButton;
+
+  ///show this if field is empty
+  final Widget? emptyFieldWidget;
 
   @override
   State<MultiDropdown<T>> createState() => _MultiDropdownState<T>();
@@ -463,7 +467,7 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
                     isEmpty: _dropdownController.selectedItems.isEmpty,
                     isFocused: _dropdownController.isOpen,
                     decoration: _buildDecoration(),
-                    baseStyle: widget.fieldDecoration.textStyle,
+                    // baseStyle: widget.fieldDecoration.textStyle,
                     textAlign: TextAlign.start,
                     textAlignVertical: TextAlignVertical.center,
                     child: _buildField(),
@@ -565,13 +569,16 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
 
   Widget _buildField() {
     if (_dropdownController.selectedItems.isEmpty) {
-      return const SizedBox();
+      return widget.emptyFieldWidget ?? const SizedBox.shrink();
     }
 
     final selectedOptions = _dropdownController.selectedItems;
 
     if (widget.singleSelect) {
-      return Text(selectedOptions.first.label);
+      return Text(
+        selectedOptions.first.label,
+        style: widget.fieldDecoration.textStyle,
+      );
     }
 
     return _buildSelectedItems(selectedOptions);

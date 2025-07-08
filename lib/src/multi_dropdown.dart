@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' if (dart.library.io) 'dart:io';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,7 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.closeOnBackButton = false,
     Key? key,
     this.emptyFieldWidget,
+    this.onClear,
   })  : future = null,
         super(key: key);
 
@@ -162,7 +164,9 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
     this.onSelectionChange,
     this.onSearchChange,
     this.closeOnBackButton = false,
-    Key? key, this.emptyFieldWidget,
+    Key? key,
+    this.emptyFieldWidget,
+    this.onClear,
   })  : items = const [],
         super(key: key);
 
@@ -180,6 +184,9 @@ class MultiDropdown<T extends Object> extends StatefulWidget {
 
   /// The decoration of the dropdown.
   final DropdownDecoration dropdownDecoration;
+
+  ///on clear, do this also
+  final void Function()? onClear;
 
   /// Show this widget if empty Items
   final Widget? emptyItemsWidget;
@@ -554,6 +561,7 @@ class _MultiDropdownState<T extends Object> extends State<MultiDropdown<T>> {
         onTap: () {
           _dropdownController.clearAll();
           _formFieldKey.currentState?.didChange(_dropdownController.selectedItems);
+          widget.onClear?.call();
         },
       );
     }
